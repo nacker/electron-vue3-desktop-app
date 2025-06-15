@@ -1,14 +1,18 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import { createPinia } from 'pinia';
+import router from './router';
 
-import './style.css'
+const app = createApp(App);
 
-import './demos/ipc'
-// If you want use Node.js, the`nodeIntegration` needs to be enabled in the Main process.
-// import './demos/node'
+// 使用Pinia
+const pinia = createPinia();
+app.use(pinia);
 
-createApp(App)
-  .mount('#app')
+// 使用Vue Router
+app.use(router);
+
+app.mount('#app')
   .$nextTick(() => {
     postMessage({ payload: 'removeLoading' }, '*')
   })
